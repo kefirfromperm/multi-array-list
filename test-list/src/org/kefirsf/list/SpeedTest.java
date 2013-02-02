@@ -11,6 +11,7 @@ import java.util.List;
 public class SpeedTest {
     public static void main(String[] args){
         test(new ArrayList<Integer>());
+        test(new MultiArrayList<Integer>());
         test(new LinkedList<Integer>());
     }
 
