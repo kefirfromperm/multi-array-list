@@ -36,13 +36,34 @@ public class MultiArrayList<E> extends AbstractList<E> {
             throw new IndexOutOfBoundsException();
         }
 
-        for (MultiArrayListPart<E> part : parts) {
+        MultiArrayListPart<E> part = findPart(index);
+
+        if (part != null) {
+            return part.get(index);
+        } else {
+            throw new IllegalStateException("Something wrong!");
+        }
+    }
+
+    private MultiArrayListPart<E> findPart(int index) {
+        int partIndex = findPartIndex(index);
+        if (partIndex >= 0) {
+            return parts.get(partIndex);
+        } else {
+            return null;
+        }
+    }
+
+    private int findPartIndex(int index) {
+        int partIndex = -1;
+        for (int i = 0; i < parts.size(); i++) {
+            MultiArrayListPart<E> part = parts.get(i);
             if (part.inBounds(index)) {
-                return part.get(index);
+                partIndex = i;
+                break;
             }
         }
-
-        throw new IllegalStateException("Something wrong!");
+        return partIndex;
     }
 
     @Override

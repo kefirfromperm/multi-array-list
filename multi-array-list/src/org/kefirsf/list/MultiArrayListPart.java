@@ -88,6 +88,14 @@ public class MultiArrayListPart<E> {
         return (index >= globalOffset && index <= globalOffset + length);
     }
 
+    public int getLeftSpace(){
+        return localOffset;
+    }
+
+    public int getRightSpace(){
+        return array.length - localOffset - length;
+    }
+
     public void shiftLeft() {
         if (globalOffset <= 0) {
             throw new IllegalStateException("Global offset can't be negative.");
